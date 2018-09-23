@@ -57,6 +57,9 @@ To install all requirements, `pip install -r requirements.txt` within the src di
 * [Dillinger](https://dillinger.io/) - Responsive markdown editor
 * [Slick](http://kenwheeler.github.io/slick/) - Workarounds for carousel tech when bootstrap was failing
 * [jQuery](https://jquery.com/) - Pretty required for web development these days
+* [Graphviz](https://www.graphviz.org/) - Data visualization for UML architecture
+* [Django Extensions](https://django-extensions.readthedocs.io/en/latest/#) - Digraph export for conversion to UML design
+* [Pydotplus](https://pydotplus.readthedocs.io/) - Intermediary for graph conversion
 
 
 ### Installation
