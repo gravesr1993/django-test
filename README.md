@@ -3,15 +3,15 @@
 This is an example website created as a playground and testsite for compatability, and learning integration of components into legacy django 1.11.
 Additionally testing done within django's environment is as follows
 
-    flushing the DB and filling with new data
-    created and adding new pages and redirects
-    testing integration of bootstrap elements within django
-    creating workarounds for specific identified scenarios which had no resolution
-    patchwork additionally as needed for touch and feel
-    introduction of static elements to house data, to eventually push to CDN architecture instead
+    Flushing the DB and filling with new data.
+    Created and adding new pages and redirects.
+    Testing integration of bootstrap elements within django.
+    Creating workarounds for specific identified scenarios which had no resolution.
+    Patchwork additionally as needed for touch and feel.
+    Introduction of static elements to house data, to eventually push to CDN architecture instead.
 
 # Requirements
-to install all requirements, `pip install -r requirements.txt` within the src directory
+To install all requirements, `pip install -r requirements.txt` within the src directory
 
     astroid==2.0.4
     certifi==2018.8.24
