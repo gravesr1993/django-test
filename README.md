@@ -60,6 +60,7 @@ To install all requirements, `pip install -r requirements.txt` within the src di
 * [Graphviz](https://www.graphviz.org/) - Data visualization for UML architecture
 * [Django Extensions](https://django-extensions.readthedocs.io/en/latest/#) - Digraph export for conversion to UML design
 * [Pydotplus](https://pydotplus.readthedocs.io/) - Intermediary for graph conversion
+* [Python](https://www.python.org/) - 3.7.xx, Mandatory for backend and django
 
 
 ### Installation
