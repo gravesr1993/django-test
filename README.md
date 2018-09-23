@@ -84,7 +84,7 @@ Run the server: "python manage.py runserver"
     password: p@ssword
     
     user1,user2,user3
-    password; p@ssword
+    password: p@ssword
 
 
 ### Todos
