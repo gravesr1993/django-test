@@ -79,8 +79,8 @@ Run the server: "python manage.py runserver"
  - Fix spacing on carousel, caused by image loading before slick engages leaving the dynamic part static
  - Add Night Mode
  - Fully integrate and solve plaid issues
- - clean FPS problems on parallax example
+ - Clean FPS problems on parallax example
 
 License
 ----
-N/A
+MIT
