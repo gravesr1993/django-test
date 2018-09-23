@@ -78,6 +78,15 @@ Activating the virtualENV:
 Navigate to cfehome\src
 Run the server: "python manage.py runserver"
 ```
+
+### Defaults
+    superuser: superuser
+    password: p@ssword
+    
+    user1,user2,user3
+    password; p@ssword
+
+
 ### Todos
 
  - Fix spacing on carousel, caused by image loading before slick engages leaving the dynamic part static
