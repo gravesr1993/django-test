@@ -46,7 +46,7 @@ to install all requirements, `pip install -r requirements.txt` within the src di
     wrapt==1.10.11
 
 # Visualization
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/gravesr1993/django-test/blob/master/cfehome/src/website_visualized.png "Visualized Website Backend Design")
 
 ### Tech
 
