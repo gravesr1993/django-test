@@ -1,1 +1,86 @@
-# djangoTest
+# Example Website
+
+This is an example website created as a playground and testsite for compatability, and learning integration of components into legacy django 1.11.
+Additionally testing done within django's environment is as follows
+
+    flushing the DB and filling with new data
+    created and adding new pages and redirects
+    testing integration of bootstrap elements within django
+    creating workarounds for specific identified scenarios which had no resolution
+    patchwork additionally as needed for touch and feel
+    introduction of static elements to house data, to eventually push to CDN architecture instead
+
+# Requirements
+to install all requirements, `pip install -r requirements.txt` within the src directory
+
+    astroid==2.0.4
+    certifi==2018.8.24
+    chardet==3.0.4
+    click==6.7
+    colorama==0.3.9
+    dj-database-url==0.5.0
+    Django==1.11.8
+    django-crispy-forms==1.7.2
+    django-extensions==2.1.2
+    djangorestframework==3.8.2
+    Flask==1.0.2
+    gunicorn==19.9.0
+    idna==2.7
+    isort==4.3.4
+    itsdangerous==0.24
+    Jinja2==2.10
+    lazy-object-proxy==1.3.1
+    MarkupSafe==1.0
+    mccabe==0.6.1
+    Pillow==5.2.0
+    plaid-python==2.3.3
+    psycopg2==2.7.5
+    pydotplus==2.0.2
+    pyparsing==2.2.1
+    pytz==2018.5
+    requests==2.19.1
+    six==1.11.0
+    typed-ast==1.1.0
+    urllib3==1.23
+    Werkzeug==0.14.1
+    wrapt==1.10.11
+
+# Visualization
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+
+### Tech
+
+* [Django](https://www.djangoproject.com/) - python based backend 
+* [Sublime](https://www.sublimetext.com/) - Responsive text editor
+* [Bootstrap](http://getbootstrap.com/) - Boilerplate CSS for web apps
+* [Django REST framework](http://www.django-rest-framework.org/) - provided REST capabilities to the project
+* [Dillinger](https://dillinger.io/) - Responsive markdown editor
+* [Slick](http://kenwheeler.github.io/slick/) - Workarounds for carousel tech when bootstrap was failing
+* [jQuery](https://jquery.com/) - Pretty required for web development these days
+
+
+### Installation
+
+Install the dependencies start the server.
+```
+Navigate to the directory cfehome
+
+Activating the virtualENV:
+    for MAC:
+        ./bin/activate
+    for WINDOWS:
+        .\Scripts\activate
+        
+Navigate to cfehome\src
+Run the server: "python manage.py runserver"
+```
+### Todos
+
+ - Fix spacing on carousel, caused by image loading before slick engages leaving the dynamic part static
+ - Add Night Mode
+ - Fully integrate and solve plaid issues
+ - clean FPS problems on parallax example
+
+License
+----
+N/A

@@ -1,0 +1,25 @@
+{%extends "base.html"%}
+{%block head_title %}Home Feed || {{block.super}}{% endblock head_title %}
+{%block content %}
+
+
+<h1> User Following Feed</h1>
+{%for obj in object_list%}
+<div class='row'>
+	<div class= 'col-sm-11 text-center'>
+		<div class='card bg-dark text-white border-info mb-3'>
+			<div class="card-header">
+				<h7>{{obj.name}}</h7> 
+			</div>
+			<h7><a href='{% url "profiles:detail" username=obj.user.username %}'>{{obj.user.username}}</a></h7>
+			<p> {{obj.restaurant.title}} | {{obj.restaurant.category}}</p>
+			<p><b>{{obj.name}}: </b> with
+				{%for ing in obj.get_content %}
+				<a href ='{{request.path}}?q={{ ing}}'>{{ing}}</a>
+				{%endfor%}
+			</p>
+		</div>
+		{%endfor%}	
+	</div>
+</div>
+{%endblock%}

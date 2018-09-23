@@ -1,0 +1,1 @@
+# redirect init to settings init file instead

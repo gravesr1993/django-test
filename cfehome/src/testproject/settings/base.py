@@ -27,7 +27,19 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# EMAIL for auto email verification to register users
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST_USER="gravesr1993auto@gmail.com"
+EMAIL_HOST_PASSWORD='2dcaptain'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Robert Graves<gravesr1993auto@email.com>'
 
+# admins must always be defined
+ADMINS = (
+    ('You', 'you@email.com')
+    )
+MANAGER=ADMINS
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +49,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'restaurants',
+    'menus',
+    'profiles',
+    'plaidtest',
+    'rest_framework',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -50,11 +68,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'testproject.urls'
-
+LOGIN_URL='/login/'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,5 +134,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
 STATIC_URL = '/static/'
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR,"templates/static")
+]
+# statuc redurects 
+LOGOUT_REDIRECT_URL ='/login/'
+LOGIN_REDIRECT_URL='/'
+
+# Test setting for redirects in plaid
+APPEND_SLASH=False

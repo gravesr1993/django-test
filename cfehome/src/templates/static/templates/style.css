@@ -1,0 +1,128 @@
+
+
+<style>
+body { line-height: 1; }
+
+html {
+    color: #444;
+	font: normal helvetica, arial, sans-serif;
+	padding: 0px;
+    margin: 0;
+	text-align: center;
+    background: #f9f9f9;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+}
+
+a, a:visited { color: #3a98c9; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+#banner, #container, .box { 
+  margin: 20px auto 0; 
+  padding: 20px; 
+  border: 3px solid #458af9; 
+  border-radius: 50px; 
+  text-align: left; /* IE6-9 */
+  width:50%;
+}
+button {
+    background-color: #1a476a;
+    background-image: -webkit-linear-gradient(top, #29618e, #164a74);
+    background-image: linear-gradient(to bottom, #29618e, #164a74);
+    border-color: #1a476a;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.1),0 1px 2px rgba(19,49,69,0.2);
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 10px 30px;
+    font-size: 18px;
+    border-radius: 4px;
+}
+button:hover { color: #f1f1f1; cursor: pointer; }
+
+#app { display: none; }
+#app textarea { display: none; height: 100px; width: 260px; padding: 10px; font-size: 14px; }
+.box { margin: 20px auto 0; }
+.inner { background: #f3f3f3; font-size: 14px; line-height: 17px; padding: 20px; border-radius: 2px; margin-top: 20px; }
+#banner { border-top: 0px; margin-top: 0px; border-radius: 0 0 2px 2px; }
+#banner h1 { color: #1a476a; font-size: 18px; font-weight: bold; }
+#banner p { font-size: 14px; line-height: 17px; margin-top: 5px; }
+#steps { display: none; }
+/*Stroke background effect*/
+h1 {
+  color: black;
+  -webkit-text-fill-color: lightblue; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: .9px;
+  -webkit-text-stroke-color: black;
+}
+.parallax {
+  top: 0%;
+  /*backwards compat sticky*/
+  position: -webkit-sticky;
+  position:sticky;
+  background-attachment: local;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.parallax:nth-of-type(1) {
+  background: url('images/n1.jpg');
+} 
+.parallax:nth-of-type(2) {  
+  background:url('images/n2.jpg');
+} 
+.parallax:nth-of-type(3) {  
+  background:url('images/n3.jpg');
+} 
+.parallax:nth-of-type(4) {  
+  background-color:lightgreen;
+}
+/* compatability with small screens and media devices where parallax scrolling is not allowed, IE phones*/
+@media screen and (max-width: 1030px) {
+  .parallax {
+    background-attachment: scroll;
+  }
+}
+.p-parallax {
+  background-color: #458af9; 
+  vertical-align: middle;
+  text-align: center;
+  width: 100%;
+}
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  /*def top to be sticky to*/
+  top: 25%;
+  padding: 5px;a
+  background-color: #cae8ca;
+  border: 2px solid #4CAF50;
+}
+.background-main{
+  background:url('images/background.jpg');
+}
+/*gradient for background usage*/
+.gradient-wrapper{
+background: -moz-linear-gradient(top, rgba(84,120,204,0.21) 0%, rgba(92,134,206,0.26) 6%, rgba(92,134,206,0.3) 11%, rgba(95,138,207,0.32) 14%, rgba(109,150,211,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(84,120,204,0.21) 0%,rgba(92,134,206,0.26) 6%,rgba(92,134,206,0.3) 11%,rgba(95,138,207,0.32) 14%,rgba(109,150,211,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(84,120,204,0.21) 0%,rgba(92,134,206,0.26) 6%,rgba(92,134,206,0.3) 11%,rgba(95,138,207,0.32) 14%,rgba(109,150,211,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#365478cc', endColorstr='#6d96d3',GradientType=0 ); /* IE6-9 */
+}
+.zoomButton{
+  /*margin auto actually isn't centering the button to the middle of the screen in this case for some reason, django specific implementation needed?*/
+  width:100%;
+  margin: 0 auto;
+}
+/*this was conflicting with boostrap CSS, and bootstrap CSS was conflicting this */
+.card-background{
+  background-color:lightblue;
+}
+</style>

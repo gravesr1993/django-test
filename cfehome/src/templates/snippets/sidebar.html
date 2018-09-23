@@ -1,0 +1,20 @@
+{%comment %}
+need viewport for scaling when moving
+{%endcomment%}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large" onclick="w3_close()">Close &times;</button>
+  {% include 'snippets/nav.html'%}
+</div>
+<div id="main-collapsable">
+	<div class="w3-blue">
+		{%comment %}
+	  &#9776; is alt code for triple bar
+	  {%endcomment%}
+	  <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+	  {%comment %}
+	  \ work as escape characters just the same as other languages
+	  {%endcomment%}
+	    Welcome {{request.user}}, it is the: {%now "jS \o\f F Y P" %}
+	</div>
+</div>

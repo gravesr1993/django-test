@@ -1,0 +1,32 @@
+{%extends "base.html"%}
+{%block head_title %}{{form.instance.name}} Menus Items || {{block.super}}{% endblock head_title %}
+{%block content %}
+{{ form|crispy }}
+<h1>{{form.instance.name}}</h1>
+<p>Location: {{form.instance.restaurant.name}}</p>
+<ul>
+	{%if form.instance.content%}
+	Contents
+	<ul>
+		{% for item in form.instance.get_content %}
+		<li>
+			{{item}}
+		</li>
+		{%endfor%}
+	</ul>
+	{%endif%}
+	{%if form.instance.excludes%}
+	Excludes
+	<ul>
+		{% for item in form.instance.get_excludes %}
+		<li>
+			{{item}}
+		</li>
+		{%endfor%}
+	</ul>
+	{%endif%}
+	</li>
+</ul>
+<h3> Make Changes</h3>
+{% include 'snippets/form-snippet.html' with form=form %}
+{%endblock%}

@@ -1,0 +1,26 @@
+<!--- loading from static source for CSS for proof of work for template for moving to CDN --->
+<!-- semi? bug -- runserver will not reallocate cache for JS and you need to empty cache for any updates to JS file to reflect within window --->
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'templates/style.css' %}">
+<link rel="shortcut icon" type="image/gif" href="{%static 'templates/images/favicon.gif' %}">
+{% include 'snippets/css.html' %}
+
+<!DOCTYPE html>
+<html lang=en >
+<head>
+	<title>
+		{%block head_title %}
+		Playground Website
+		{%endblock head_title%}
+	</title>
+</head>
+<body class='background-main text-white'>
+{%include 'snippets/sidebar.html'%}
+    	<!---  css applys to content block as well--->
+    	<div id='container' class="gradient-wrapper">
+    	{% block content %}
+    	{% endblock content %}
+    	</div>
+</body>
+</html>
+{%include 'snippets/js.html' %}

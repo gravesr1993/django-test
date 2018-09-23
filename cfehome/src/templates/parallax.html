@@ -1,0 +1,60 @@
+
+<!-- parallax example, utilizing sticky because django position:fixed has some bugs so picked an alternative for similar effects  -->
+{%extends "base.html"%}
+{%block head_title %}Parallax || {{block.super}}{% endblock head_title %}
+{%block content%}
+<body>
+  <div class='container'>
+    <h1>Parallax example</h1><hr>
+    <p>This utilizes a workaround due to conflicting problems within CSS and django I was currently unable to identify with position:fixed;
+      <br> after extensive research, rather than fix the internal problem I found it easier to create a workaround with current knowledge,
+      <br> to reflect an experience similar to a parallax effect in a more limit capacity.
+      <br> This utilizes nth of type as well, something you might not have seen before, I would usually recommend against it but figured i'd include in this example
+      <br> to demonstrate breadth of knowledge
+    </p><hr>
+    <code>
+      <xmp>
+      <section class="parallax "><br>
+      <p class="p-parallax sticky bg-dark text-white"><br>
+      </xmp>
+        .parallax {<br>
+          top: 0%;<br>
+          /*backwards compat sticky*/<br>
+          position: -webkit-sticky;<br>
+          position:sticky;<br>
+          background-attachment: local;<br>
+          background-repeat: no-repeat;<br>
+          background-size: cover;<br>
+          height: 100%;<br>
+          width: 100%;<br>
+          margin-left: auto;<br>
+          margin-right: auto;}<br><br>
+        .parallax:nth-of-type(1) {<br>
+          background: url('images/n1.jpg');} <br><br>
+        .parallax:nth-of-type(2) {  <br>
+          background:url('images/n2.jpg');} <br><br>
+        .parallax:nth-of-type(3) {  <br>
+          background:url('images/n3.jpg');} <br><br>
+        .parallax:nth-of-type(4) {  <br>
+          background-color:lightgreen;}<hr>
+    </code>
+  </div>
+  <section class="parallax ">
+  		<p class="p-parallax sticky bg-dark text-white">
+  			This is a parallax view demo created with django specific implementation based off of workable CSS properties.
+  			Scroll Down to continue.
+  		</p>
+	</section>
+  	<section class="parallax ">
+  	<p class="p-parallax sticky bg-dark text-white">
+  		Scrolling on the page moves fixed view items, which in Django's case appears to not work. The workaround i've created utilizes sticky positions in lieu of
+  		fixed positioning.
+	</p>
+	</section>
+  <section class="parallax ">
+	  	<p class="p-parallax sticky bg-dark text-white">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</p>
+</section>
+</body>
+{%endblock content%}

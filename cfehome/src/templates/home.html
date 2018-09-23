@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{%block head_title %}{{block.super}}{% endblock head_title %}
+{% block content %}
+  <h1>Simple Collapsible</h1>
+<div class="container-fluid text-white">
+  <p> This home view features a simple collapsable button view which reveals data after clicked.</p>
+  <p>Click on the button to toggle between showing and hiding content.</p>
+  <code>Issue with display:none within transitions.scss:13 from bootstrap transitional code that persists when collapse class transitions to collapse in, display:none persists, making the object disappear, workaround created and utilized<hr></code>
+  <code>
+      function toggleWorkAround(){<br>
+    if ($("#collapseExample").css("display")=='none'){<br>
+      document.getElementById("collapseExample").style.display = "inline-block"<br>
+    }else if($("#collapseExample").css("display")=='inline-block'){<br>
+      console.log('inline detected')<br>
+      document.getElementById("collapseExample").style.display = "none";
+    }
+  }<hr>
+  </code>
+  <br> 
+  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="toggleWorkAround()">
+    Link with href
+  </a>
+	<div class="collapse" id="collapseExample">
+	  <div class="card card-body bg-dark">
+	    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+	  </div>
+	</div>
+</div>
+{% endblock content %}

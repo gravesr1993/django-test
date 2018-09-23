@@ -1,0 +1,35 @@
+{%extends "base.html"%}
+{%block head_title %}Zoom Zoom || {{block.super}}{% endblock head_title %}
+{%block content%}
+<body>
+	<div class='container'>
+		<h1>Background Zoom</h1><hr>
+		<p> This is an example of some effects javascript can have in browser on screen positioning, and mouse tracking.
+			<br>click the button to run the script, the browser will start tracking mouse for movement of the screen with friction and other additives.
+		</p><hr>
+		<code>function moveBackground() {<br>
+			  x += (lFollowX - x) * friction;<br>
+			  y += (lFollowY - y) * friction;<br>
+			  translate = 'translate(' + x + 'px, ' + y + 'px) scale(1.03)';<br>
+			  $('.background-main').css({<br>
+			    '-webit-transform': translate,<br>
+			    '-moz-transform': translate,<br>
+			    'transform': translate});<br>
+
+			  window.requestAnimationFrame(moveBackground);}<br>
+
+			$(window).on('mousemove click', function(e) {<br>
+
+			  var lMouseX = Math.max(-100, Math.min(100, $(window).width() / 2 - e.clientX));<br>
+			  var lMouseY = Math.max(-100, Math.min(100, $(window).height() / 2 - e.clientY));<br>
+			  lFollowX = (20 * lMouseX) / 100; // 100 : 12 = lMouxeX : lFollow<br>
+			  lFollowY = (10 * lMouseY) / 100;});<hr>
+		</code>
+	</div>
+	<div class='centered'>
+		<button type="button" class="btn btn-dark zoomButton btn-sm" onclick="moveBackground()">
+			Click me to start zooming
+		</button>
+	</div>
+</body>
+{%endblock%}

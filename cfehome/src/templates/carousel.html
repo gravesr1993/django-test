@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{%load static%}
+{%block head_title %}{{block.super}}{% endblock head_title %}
+{% block content %}
+<div class-'container'>
+  <h1> Carousel</h1>
+  <hr>
+    <p>
+    utilizing an integrated library, slick, this is an example carousel that will automatically slide between all slide contents infinitely.
+    <br>Hover over a slide to make it stop.
+    <br>Drag a slide left and right to move to another slide.
+    <p>
+      <code>Documentation: <a href="http://kenwheeler.github.io/slick/">http://kenwheeler.github.io/slick/</a></code>
+</div>
+<div class='slick-carousel '>
+    <div>
+      <img class="d-block w-100" src="{%static '/templates/images/n1.jpg'%}">
+    </div>
+    <div>
+      <img class="d-block w-100" src="{%static '/templates/images/n2.jpg'%}">
+    </div>
+    <div>
+      <img class="d-block w-100" src="{%static '/templates/images/n3.jpg'%}">
+    </div>
+  </div>
+{%endblock%}
