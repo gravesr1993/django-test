@@ -29,7 +29,7 @@ class RegisterView(CreateView):
 	success_url='/'
 	def dispatch(self,*args,**kwargs):
 		if self.request.user.is_authenticated():
-			return redirect("/logout")
+			return redirect("/logout/")
 		return super(RegisterView,self).dispatch(*args,**kwargs)
 
 class ProfileFollowToggle(LoginRequiredMixin,View):
