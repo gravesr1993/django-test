@@ -20,7 +20,7 @@ def activate_user_view(request, code=None, *args, **kwargs):
             	user_.save()
             	profile.activation_key=None
             	profile.save()
-            return redirect("/login")
+            return redirect("/login/")
     return redirect("/")
 
 class RegisterView(CreateView):
