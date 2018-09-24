@@ -17,14 +17,13 @@
         <h1>Plaid Example Walkthrough</h1>
         <p id="intro">
             This is an example application that walks through integrating Plaid Link using the API to retrieve Auth and Transaction data.
-            }
         </p>
         <p id="steps">
             Great - you just created an Item! The server was successfully able to exchange the public_token for an access_token.
             Below are a few options - you can get account data, retrieve information about the Item itself, or pull transaction data.
         </p>
     </div>
-    <div id="container">
+    <div id="container-plaid">
         <p>
             Default sandbox username and password:<br>
             <code>user_good</code><br>
@@ -54,7 +53,6 @@
     <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 
     <!-- maintaining script for plaid seperate to ensure integrity while debugging of information -->
-    <!-- This includes hard coding PLAID keys to ensure there is no wiggle to the effect of multiple data types incoming -->
     <script>
     function getParameterByName(name, url) {
 
@@ -67,20 +65,15 @@
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
     ;(function($) {
-        /*this is for debug and needs to be removed and put into {{format}} later for usage with multiple users*/
-        var PLAID_CLIENT_ID = '5b9fccf1448de50011a24cd4'
-        var PLAID_SECRET = '9aa1e5a287571946c2c29bc7095c74'
-        var PLAID_PUBLIC_KEY = '113612795da4a87e4850681ffb3866'
-        console.log("plaid public key: {{plaid_public_key}}")
         var handler = Plaid.create({
             apiVersion: 'v2',
             clientName: 'Plaid Walkthrough Demo',
-            env: 'sandbox',
+            env:'{{plaid_environment}}',
             product: ['transactions'],
-            key:PLAID_PUBLIC_KEY,
-            onSuccess: function(public_token) {
+            key:'{{plaid_public_key}}',
+            onSuccess: function(public_token, metadata) {
                 $.post('get_access_token', {'public_token': public_token}, function() {
-                    $('#container').fadeOut('fast', function() {
+                    $('#container-plaid').fadeOut('fast', function() {
                         $('#intro').hide();
                         $('#app, #steps').fadeIn('slow');
                     });
@@ -103,11 +96,11 @@
         }
 
         $('#get-accounts-btn').on('click', function(e) {
-            $.get('/accounts', function(data) {
+            $.get('{{request.path}}accounts', function(data) {
                 $('#get-accounts-data').slideUp(function() {
                     var html = '';
                     data.accounts.forEach(function(account, idx) {
-                        html += '<div class="inner">';
+                        html += '<div class="inner text-dark">';
                         html += '<strong>' + account.name +
                                 ' $' + (account.balances.available != null ? account.balances.available : account.balances.current) + '</strong><br>';
                         html += account.subtype + ' ' + account.mask;
@@ -120,16 +113,17 @@
         });
 
         $('#get-item-btn').on('click', function(e) {
-            $.post('/item', function(data) {
+            $.post('{{request.path}}item', function(data) {
                 $('#upgrade-to-connect-data').slideUp(function() {
                     if(data.error)
                         $(this).html('<p>' + data.error + '</p>').slideDown();
                     else {
-                        var html = '';
+                        var html = '<div class="text-dark">';
                         html += '<p>Here\'s some basic information about your Item:</p>';
                         html += '<p>Institution name:' + data.institution.name +'</p>';
                         html += '<p>Billed products: ' + data.item.billed_products.join(', ') + '</p>';
                         html += '<p>Available products: ' + data.item.available_products.join(', ') + '</p>';
+                        html += '</div>'
 
 
                         $(this).html(html).slideDown();
@@ -140,14 +134,14 @@
         });
 
         $('#get-transaction-data').on('click', function(e) {
-            $.post('/transactions', function(data) {
+            $.post('{{request.path}}transactions', function(data) {
                 if (data.error) {
                     $(this).html('<p>' + data.error + '</p>').slideDown();
                 } else {
                 $('#get-transactions-data').slideUp(function() {
                     var html = '<p>Pulled ' + data.transactions.length + ' transaction(s).</p>';
                     data.transactions.forEach(function(txn, idx) {
-                        html += '<div class="inner">';
+                        html += '<div class="inner text-dark">';
                         html += '<strong>' + txn.name + '</strong><br>';
                         html += '$' + txn.amount;
                         html += '<br><em>' + txn.date + '</em>';
