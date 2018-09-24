@@ -13,6 +13,8 @@ Additionally testing done within django's environment is as follows
 # Requirements
 To install all requirements, `pip install -r requirements.txt` within the src directory
 
+***python 3.x+++ required for f-string functionality***
+
     certifi==2018.8.24
     chardet==3.0.4
     click==6.7
