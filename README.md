@@ -3,17 +3,18 @@
 This is an example website created as a playground and testsite for compatability, and learning integration of components into legacy django 1.11.
 Additionally testing done within django's environment is as follows
 
-    flushing the DB and filling with new data
-    created and adding new pages and redirects
-    testing integration of bootstrap elements within django
-    creating workarounds for specific identified scenarios which had no resolution
-    patchwork additionally as needed for touch and feel
-    introduction of static elements to house data, to eventually push to CDN architecture instead
+    Flushing the DB and filling with new data.
+    Created and adding new pages and redirects.
+    Testing integration of bootstrap elements within django.
+    Creating workarounds for specific identified scenarios which had no resolution.
+    Patchwork additionally as needed for touch and feel.
+    Introduction of static elements to house data, to eventually push to CDN architecture instead.
 
 # Requirements
-to install all requirements, `pip install -r requirements.txt` within the src directory
+To install all requirements, `pip install -r requirements.txt` within the src directory
 
-    astroid==2.0.4
+***python 3.x+++ required for f-string functionality***
+
     certifi==2018.8.24
     chardet==3.0.4
     click==6.7
@@ -46,7 +47,7 @@ to install all requirements, `pip install -r requirements.txt` within the src di
     wrapt==1.10.11
 
 # Visualization
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/gravesr1993/django-test/blob/master/cfehome/src/website_visualized.png "Visualized Website Backend Design")
 
 ### Tech
 
@@ -57,6 +58,10 @@ to install all requirements, `pip install -r requirements.txt` within the src di
 * [Dillinger](https://dillinger.io/) - Responsive markdown editor
 * [Slick](http://kenwheeler.github.io/slick/) - Workarounds for carousel tech when bootstrap was failing
 * [jQuery](https://jquery.com/) - Pretty required for web development these days
+* [Graphviz](https://www.graphviz.org/) - Data visualization for UML architecture
+* [Django Extensions](https://django-extensions.readthedocs.io/en/latest/#) - Digraph export for conversion to UML design
+* [Pydotplus](https://pydotplus.readthedocs.io/) - Intermediary for graph conversion
+* [Python](https://www.python.org/) - 3.7.xx, Mandatory for backend and django
 
 
 ### Installation
@@ -74,13 +79,22 @@ Activating the virtualENV:
 Navigate to cfehome\src
 Run the server: "python manage.py runserver"
 ```
+
+### Defaults
+    superuser: superuser
+    password: p@ssword
+    
+    user1,user2,user3
+    password: p@ssword
+
+
 ### Todos
 
  - Fix spacing on carousel, caused by image loading before slick engages leaving the dynamic part static
  - Add Night Mode
  - Fully integrate and solve plaid issues
- - clean FPS problems on parallax example
+ - Clean FPS problems on parallax example
 
 License
 ----
-N/A
+MIT
