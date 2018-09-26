@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"access",
+				"access_token"
+			],
+			[
+				"excahnge",
+				"exchange_response"
+			],
+			[
 				"View",
 				"View"
 			],
@@ -120,32 +128,48 @@
 	"buffers":
 	[
 		{
-			"contents": "from django.shortcuts import render\nfrom django.views.generic import TemplateView\nfrom django.contrib.auth import get_user_model\nfrom plaid import Client\nfrom plaid.errors import APIError, ItemError\nimport os\nimport datetime\nimport plaid\nfrom flask import Flask\nfrom flask import render_template\nfrom flask import request\nfrom flask import jsonify\n\napp = Flask(__name__)\n\n# Fill in your Plaid API keys - https://dashboard.plaid.com/account/keys\nPLAID_CLIENT_ID = '5b9fccf1448de50011a24cd4'\nPLAID_SECRET = '9aa1e5a287571946c2c29bc7095c74'\nPLAID_PUBLIC_KEY = '113612795da4a87e4850681ffb3866'\n# Use 'sandbox' to test with Plaid's Sandbox environment (username: user_good,\n# password: pass_good)\n# Use `development` to test with live users and credentials and `production`\n# to go live\nPLAID_ENV='sandbox'\n\n# Create your views here.\nclass PlaidView(TemplateView):\n\ttemplate_name='./plaidtest/plaid_test.html'\n\t#test code\n\t# client = Client(client_id='5b9fccf1448de50011a24cd4',secret='9aa1e5a287571946c2c29bc7095c74',public_key='113612795da4a87e4850681ffb3866',environment='sandbox')\n\t# try:\n\t# \tclient.Auth.get(access_token)\n\t# except ItemError as e:\n\t# \tprint('error')\n\n\n\nclient = plaid.Client(client_id = PLAID_CLIENT_ID, secret=PLAID_SECRET,\n                  public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)\n\n@app.route(\"/\")\ndef index():\n   return render_template('index.ejs', plaid_public_key=PLAID_PUBLIC_KEY, plaid_environment=PLAID_ENV)\n\n\naccess_token = None\npublic_token = None\n\n@app.route(\"/get_access_token\", methods=['POST'])\ndef get_access_token():\n  global access_token\n  public_token = request.form['public_token']\n  exchange_response = client.Item.public_token.exchange(public_token)\n  print ('access token: ' + exchange_response['access_token'])\n\n  access_token = exchange_response['access_token']\n\n  return jsonify(exchange_response)\n\n@app.route(\"/set_access_token\", methods=['POST'])\ndef set_access_token():\n  global access_token\n  access_token = request.form['access_token']\n  print ('access token: ' + access_token)\n  return jsonify({'error': False})\n\n@app.route(\"/accounts\", methods=['GET'])\ndef accounts():\n  global access_token\n  accounts = client.Auth.get(access_token)\n  return jsonify(accounts)\n\n@app.route(\"/item\", methods=['GET', 'POST'])\ndef item():\n  global access_token\n  item_response = client.Item.get(access_token)\n  institution_response = client.Institutions.get_by_id(item_response['item']['institution_id'])\n  return jsonify({'item': item_response['item'], 'institution': institution_response['institution']})\n\n@app.route(\"/transactions\", methods=['GET', 'POST'])\ndef transactions():\n  global access_token\n  # Pull transactions for the last 30 days\n  start_date = \"{:%Y-%m-%d}\".format(datetime.datetime.now() + datetime.timedelta(-30))\n  end_date = \"{:%Y-%m-%d}\".format(datetime.datetime.now())\n\n  response = client.Transactions.get(access_token, start_date, end_date)\n  return jsonify(response)\n\n@app.route(\"/create_public_token\", methods=['GET'])\ndef create_public_token():\n  global access_token\n  # Create a one-time use public_token for the Item. This public_token can be used to\n  # initialize Link in update mode for the user.\n  response = client.Item.public_token.create(access_token)\n  return jsonify(response)\n\nif __name__ == \"__main__\":\n    app.run()",
 			"file": "src/plaidtest/views.py",
-			"file_size": 3398,
-			"file_write_time": 131817068465303328,
 			"settings":
 			{
-				"buffer_size": 3298,
+				"buffer_size": 3423,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/plaidtest/plaid/static/static.css",
+			"file": "src/profiles/views.py",
 			"settings":
 			{
-				"buffer_size": 2164,
+				"buffer_size": 2247,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/plaidtest/templates/plaidtest/plaid_test.html",
+			"settings":
+			{
+				"buffer_size": 6476,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/plaidtest/urls.py",
+			"file": "src/templates/static/templates/plaidstyle.css",
 			"settings":
 			{
-				"buffer_size": 124,
+				"buffer_size": 2897,
 				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "\n\n<style>\nbody { line-height: 1; }\n\nhtml {\n    color: #444;\n\tfont: normal helvetica, arial, sans-serif;\n\tpadding: 0px;\n    margin: 0;\n\ttext-align: center;\n    background: #f9f9f9;\n}\n\nbody {\n    padding: 0px;\n    margin: 0px;\n    text-align: center;\n}\n\na, a:visited { color: #3a98c9; text-decoration: none; }\na:hover { text-decoration: underline; }\n\n#banner, #container, .box { \n  margin: 20px auto 0; \n  padding: 20px; \n  border: 3px solid #458af9; \n  border-radius: 50px; \n  text-align: left; /* IE6-9 */\n  width:50%;\n}\nbutton {\n    background-color: #1a476a;\n    background-image: -webkit-linear-gradient(top, #29618e, #164a74);\n    background-image: linear-gradient(to bottom, #29618e, #164a74);\n    border-color: #1a476a;\n    border-style: solid;\n    border-width: 1px;\n    box-shadow: inset 0 1px 2px rgba(255,255,255,0.1),0 1px 2px rgba(19,49,69,0.2);\n    color: #fff;\n    text-shadow: 0 2px 4px rgba(0,0,0,0.1);\n    padding: 10px 30px;\n    font-size: 18px;\n    border-radius: 4px;\n}\nbutton:hover { color: #f1f1f1; cursor: pointer; }\n\n#app { display: none; }\n#app textarea { display: none; height: 100px; width: 260px; padding: 10px; font-size: 14px; }\n.box { margin: 20px auto 0; }\n.inner { background: #f3f3f3; font-size: 14px; line-height: 17px; padding: 20px; border-radius: 2px; margin-top: 20px; }\n#banner { border-top: 0px; margin-top: 0px; border-radius: 0 0 2px 2px; }\n#banner h1 { color: #1a476a; font-size: 18px; font-weight: bold; }\n#banner p { font-size: 14px; line-height: 17px; margin-top: 5px; }\n#steps { display: none; }\n/*Stroke background effect*/\nh1 {\n  color: black;\n  -webkit-text-fill-color: lightblue; /* Will override color (regardless of order) */\n  -webkit-text-stroke-width: .9px;\n  -webkit-text-stroke-color: black;\n}\n.parallax {\n  top: 0%;\n  /*backwards compat sticky*/\n  position: -webkit-sticky;\n  position:sticky;\n  background-attachment: local;\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100%;\n  width: 100%;\n    margin-left: auto;\n    margin-right: auto;\n}\n.parallax:nth-of-type(1) {\n  background: url('images/n1.jpg');\n} \n.parallax:nth-of-type(2) {  \n  background:url('images/n2.jpg');\n} \n.parallax:nth-of-type(3) {  \n  background:url('images/n3.jpg');\n} \n.parallax:nth-of-type(4) {  \n  background-color:lightgreen;\n}\n/* compatability with small screens and media devices where parallax scrolling is not allowed, IE phones*/\n@media screen and (max-width: 1030px) {\n  .parallax {\n    background-attachment: scroll;\n  }\n}\n.p-parallax {\n  background-color: #458af9; \n  vertical-align: middle;\n  text-align: center;\n  width: 100%;\n}\n.sticky {\n  position: -webkit-sticky;\n  position: sticky;\n  /*def top to be sticky to*/\n  top: 25%;\n  padding: 5px;a\n  background-color: #cae8ca;\n  border: 2px solid #4CAF50;\n}\n.background-main{\n  background:url('images/background.jpg');\n}\n/*gradient for background usage*/\n.gradient-wrapper{\nbackground: -moz-linear-gradient(top, rgba(84,120,204,0.21) 0%, rgba(92,134,206,0.26) 6%, rgba(92,134,206,0.3) 11%, rgba(95,138,207,0.32) 14%, rgba(109,150,211,1) 100%); /* FF3.6-15 */\nbackground: -webkit-linear-gradient(top, rgba(84,120,204,0.21) 0%,rgba(92,134,206,0.26) 6%,rgba(92,134,206,0.3) 11%,rgba(95,138,207,0.32) 14%,rgba(109,150,211,1) 100%); /* Chrome10-25,Safari5.1-6 */\nbackground: linear-gradient(to bottom, rgba(84,120,204,0.21) 0%,rgba(92,134,206,0.26) 6%,rgba(92,134,206,0.3) 11%,rgba(95,138,207,0.32) 14%,rgba(109,150,211,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\nfilter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#365478cc', endColorstr='#6d96d3',GradientType=0 ); /* IE6-9 */\n}\n.zoomButton{\n  /*margin auto actually isn't centering the button to the middle of the screen in this case for some reason, django specific implementation needed?*/\n  width:100%;\n  margin: 0 auto;\n}\n/*this was conflicting with boostrap CSS, and bootstrap CSS was conflicting this */\n.card-background{\n  background-color:lightblue;\n}\n</style>\n",
+			"file": "src/templates/static/templates/style.css",
+			"file_size": 4176,
+			"file_write_time": 131822830743620974,
+			"settings":
+			{
+				"buffer_size": 3969,
 				"line_ending": "Windows"
 			}
 		},
@@ -158,28 +182,11 @@
 			}
 		},
 		{
-			"file": "src/testproject/urls.py",
-			"settings":
-			{
-				"buffer_size": 1926,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "src/testproject/settings/base.py",
 			"settings":
 			{
-				"buffer_size": 3548,
+				"buffer_size": 3843,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/templates/snippets/css.html",
-			"settings":
-			{
-				"buffer_size": 414,
 				"line_ending": "Windows"
 			}
 		}
@@ -218,21 +225,19 @@
 	[
 		"/C/dev/cfehome",
 		"/C/dev/cfehome/src",
-		"/C/dev/cfehome/src/menus",
-		"/C/dev/cfehome/src/menus/templates",
 		"/C/dev/cfehome/src/plaidtest",
-		"/C/dev/cfehome/src/plaidtest/plaid",
 		"/C/dev/cfehome/src/plaidtest/templates",
 		"/C/dev/cfehome/src/plaidtest/templates/plaidtest",
+		"/C/dev/cfehome/src/profiles",
+		"/C/dev/cfehome/src/profiles/templates",
+		"/C/dev/cfehome/src/profiles/templates/profiles",
 		"/C/dev/cfehome/src/templates",
-		"/C/dev/cfehome/src/templates/snippets",
-		"/C/dev/cfehome/src/testproject",
-		"/C/dev/cfehome/src/testproject/__pycache__",
-		"/C/dev/cfehome/src/testproject/settings",
-		"/C/dev/cfehome/src/testproject/settings/__pycache__"
+		"/C/dev/cfehome/src/templates/static",
+		"/C/dev/cfehome/src/templates/static/templates"
 	],
 	"file_history":
 	[
+		"/C/dev/cfehome/src/plaidtest/plaid/static/static.css",
 		"/C/dev/cfehome/src/profiles/templates/profiles/user.html",
 		"/C/dev/cfehome/src/menus/templates/menus/home-feed.html",
 		"/C/dev/cfehome/src/templates/base.html",
@@ -293,7 +298,7 @@
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 25.0
 	},
 	"find_in_files":
 	{
@@ -308,6 +313,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"container",
 			"password",
 			"plaid",
 			"RestaurantCreateView",
@@ -335,7 +341,7 @@
 	"groups":
 	[
 		{
-			"selected": 6,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -344,78 +350,80 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3298,
+						"buffer_size": 3423,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3298,
-								3298
+								2199,
+								2199
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 528.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/profiles/views.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 2247,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								669,
+								669
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 908.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/plaidtest/plaid/static/static.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2164,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								523,
-								523
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "src/plaidtest/urls.py",
+					"file": "src/plaidtest/templates/plaidtest/plaid_test.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 124,
+						"buffer_size": 6476,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								124,
-								124
+								1289,
+								1289
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -426,6 +434,66 @@
 				},
 				{
 					"buffer": 3,
+					"file": "src/templates/static/templates/plaidstyle.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2897,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1385,
+								1385
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 48.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/templates/static/templates/style.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3969,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								473,
+								473
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
 					"file": "src/profiles/urls.py",
 					"semi_transient": false,
 					"settings":
@@ -449,54 +517,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/testproject/urls.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1926,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1072,
-								1072
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "src/testproject/settings/base.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3548,
+						"buffer_size": 3843,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1134,
-								1134
+								0,
+								0
 							]
 						],
 						"settings":
@@ -509,35 +547,7 @@
 						"translation.y": 324.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "src/templates/snippets/css.html",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 414,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								414,
-								414
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -545,7 +555,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 25.0
 	},
 	"input":
 	{
@@ -582,7 +592,7 @@
 	"project": "testproject.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 46.0
 	},
 	"save_all_on_build": true,
 	"select_file":

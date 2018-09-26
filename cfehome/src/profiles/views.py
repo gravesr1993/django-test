@@ -20,7 +20,7 @@ def activate_user_view(request, code=None, *args, **kwargs):
             	user_.save()
             	profile.activation_key=None
             	profile.save()
-            return redirect("/login")
+            return redirect("/login/")
     return redirect("/")
 
 class RegisterView(CreateView):
@@ -29,7 +29,7 @@ class RegisterView(CreateView):
 	success_url='/'
 	def dispatch(self,*args,**kwargs):
 		if self.request.user.is_authenticated():
-			return redirect("/logout")
+			return redirect("/logout/")
 		return super(RegisterView,self).dispatch(*args,**kwargs)
 
 class ProfileFollowToggle(LoginRequiredMixin,View):

@@ -20,7 +20,7 @@ body {
 
 a, a:visited { color: #3a98c9; text-decoration: none; }
 a:hover { text-decoration: underline; }
-
+#container-plaid p { font-size: 14px; line-height: 17px; margin-bottom: 20px; }
 #banner, #container, .box { 
   margin: 20px auto 0; 
   padding: 20px; 

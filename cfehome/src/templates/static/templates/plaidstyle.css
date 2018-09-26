@@ -26,7 +26,6 @@ a, a:visited { color: #3a98c9; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 #banner, #container, .box { min-width: 280px; max-width: 800px; margin: 20px auto 0; padding: 20px; background: #fff; border: 1px solid #c9c9c9; border-radius: 2px; text-align: left; }
-#container p { font-size: 14px; line-height: 17px; margin-bottom: 20px; }
 button {
     background-color: #1a476a;
     background-image: -webkit-linear-gradient(top, #29618e, #164a74);
